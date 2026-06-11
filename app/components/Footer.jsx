@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-slate-800 bg-slate-950 text-slate-400">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">PromptSelz</p>
           <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400">
@@ -12,7 +12,7 @@ export default function Footer() {
         </div>
 
         <nav>
-          <ul className="flex flex-wrap gap-4 text-sm font-medium text-slate-300">
+          <ul className="flex flex-col gap-3 text-sm font-medium text-slate-300 sm:flex-row sm:flex-wrap sm:gap-4">
             <li>
               <Link href="/about" className="transition hover:text-white">
                 About Us

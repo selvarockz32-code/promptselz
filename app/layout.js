@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         ></script>
       </head>
-      <body className="min-h-screen bg-slate-950 text-slate-100">
-        <main className="min-h-screen">{children}</main>
+      <body className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+        <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
       </body>
