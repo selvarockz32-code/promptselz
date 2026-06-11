@@ -6,6 +6,7 @@ import "../src/css/Search.css";
 import "../src/components/components.css";
 import "../src/App.css";
 import "../src/index.css";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "PromptSelz",
@@ -23,8 +24,9 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         ></script>
       </head>
-      <body>
-        {children}
+      <body className="min-h-screen bg-slate-950 text-slate-100">
+        <main className="min-h-screen">{children}</main>
+        <Footer />
         <Analytics />
       </body>
     </html>
