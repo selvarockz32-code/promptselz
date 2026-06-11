@@ -25,11 +25,6 @@ body.no-scroll {
   padding-right: max(12px, env(safe-area-inset-right));
 }
 
-      box-sizing: border-box;
-    }
-  }
-}
-
 #spacer {
   height: 88px;
   border-top: 1px solid var(--border);

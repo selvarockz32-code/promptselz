@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
+  FaArrowLeft,
   FaPalette,
   FaRobot,
   FaGamepad,
   FaVideo
 } from "react-icons/fa";
 
-import Header from "../components/Header";
 import CategoryChip from "../components/CategoryChip";
 
 import "../css/Search.css";
@@ -62,7 +62,16 @@ export default function Search() {
   return (
     <div className="search-page">
 
-      <Header title="Discover" />
+      <div className="search-header">
+        <button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+          aria-label="Go back"
+        >
+          <FaArrowLeft />
+        </button>
+        <h1>Discover</h1>
+      </div>
 
       {/* SEARCH BOX */}
 

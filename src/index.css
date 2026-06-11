@@ -197,10 +197,6 @@ textarea:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-light);
 }
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
 
 code {
   font-size: 15px;

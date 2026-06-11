@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import AdSense from "../components/AdSense";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   doc,
@@ -28,6 +28,52 @@ export default function Home() {
   const [sections, setSections] = useState([]);
   const [categoryData, setCategoryData] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef(null);
+  const touchDeltaX = useRef(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) =>
+      trending.length
+        ? (prev + 1) % trending.length
+        : 0
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) =>
+      trending.length
+        ? (prev - 1 + trending.length) % trending.length
+        : 0
+    );
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0]?.clientX || 0;
+    touchDeltaX.current = 0;
+  };
+
+  const handleTouchMove = (e) => {
+    if (touchStartX.current === null) return;
+    touchDeltaX.current =
+      e.touches[0]?.clientX - touchStartX.current;
+  };
+
+  const handleTouchEnd = () => {
+    if (Math.abs(touchDeltaX.current) < 50) {
+      touchStartX.current = null;
+      touchDeltaX.current = 0;
+      return;
+    }
+
+    if (touchDeltaX.current < 0) {
+      nextSlide();
+    } else {
+      prevSlide();
+    }
+
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
+  };
 
   //////////////////////////////////////////////////
   // LOAD HOME DATA
@@ -232,36 +278,111 @@ export default function Home() {
       </button>
     </div>
 
-    <div
-      className="slider"
-      onClick={() =>
-        openProduct(trending[currentSlide])
-      }
-    >
-      <img
-        src={trending[currentSlide]?.img}
-        alt=""
-      />
-
-      {isNew(
-        trending[currentSlide]?.createdAt
-      ) && (
-        <div className="new-badge">
-          NEW
+    <div className="slider-holder">
+      <div
+        className="slider"
+        onClick={() =>
+          openProduct(trending[currentSlide])
+        }
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div
+          className="slider-track"
+          style={{
+            transform: `translateX(-${currentSlide * 100}%)`,
+          }}
+        >
+          {trending.map((item, index) => (
+            <div
+              key={item.docId}
+              className={`slider-card ${
+                currentSlide === index ? "active" : ""
+              }`}
+            >
+              <img
+                src={item.img}
+                alt={item.name || "Trending prompt"}
+              />
+              <div className="slide-gradient" />
+              <div className="slider-overlay">
+                <span className="slider-badge">
+                  Trending
+                </span>
+                <h3>{item.name}</h3>
+                <p>
+                  {item.desc ||
+                    "Discover the most popular prompt for your next creative idea."}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
 
-      <div className="views">
-        <FaEye />
-        {formatViews(
-          trending[currentSlide]?.views
+        {isNew(
+          trending[currentSlide]?.createdAt
+        ) && (
+          <div className="new-badge">
+            NEW
+          </div>
         )}
+
+        <div className="views">
+          <FaEye />
+          {formatViews(
+            trending[currentSlide]?.views
+          )}
+        </div>
+
+        <button
+          className="slider-control left"
+          onClick={(e) => {
+            e.stopPropagation();
+            prevSlide();
+          }}
+          aria-label="Previous slide"
+        >
+          ‹
+        </button>
+
+        <button
+          className="slider-control right"
+          onClick={(e) => {
+            e.stopPropagation();
+            nextSlide();
+          }}
+          aria-label="Next slide"
+        >
+          ›
+        </button>
       </div>
 
-      <div className="slider-overlay">
-        <h3>
-          {trending[currentSlide]?.name}
-        </h3>
+      <div className="slider-info">
+        <div className="slider-info-left">
+          <span className="slider-info-label">
+            Now Trending
+          </span>
+          <h3>{trending[currentSlide]?.name}</h3>
+          <p>
+            {trending[currentSlide]?.desc ||
+              "Swipe or tap arrows to browse the latest trending prompts."}
+          </p>
+        </div>
+        <div className="slider-meta">
+          <span className="meta-pill">
+            {formatViews(
+              trending[currentSlide]?.views
+            )} views
+          </span>
+          {isNew(
+            trending[currentSlide]?.createdAt
+          ) && (
+            <span className="meta-pill new">
+              New drop
+            </span>
+          )}
+        </div>
       </div>
     </div>
 

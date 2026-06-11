@@ -215,6 +215,30 @@
   opacity: 0.9;
 }
 
+.countdown-box {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  cursor: default;
+  min-height: var(--touch-min);
+  text-transform: capitalize;
+}
+
+.countdown-box p {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .share-btn {
   background: var(--primary-light);
   color: white;

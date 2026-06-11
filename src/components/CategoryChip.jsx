@@ -1,14 +1,8 @@
-// src/components/CategoryChip.jsx
+"use client";
 
-export default function CategoryChip({
-  text,
-  onClick,
-}) {
+export default function CategoryChip({ text, onClick }) {
   return (
-    <button
-      className="category-chip"
-      onClick={onClick}
-    >
+    <button className="category-chip" onClick={onClick}>
       {text}
     </button>
   );
