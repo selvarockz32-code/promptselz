@@ -12,7 +12,7 @@ export default function Footer() {
         </div>
 
         <nav>
-          <ul className="flex flex-col gap-3 text-sm font-medium text-slate-300 sm:flex-row sm:flex-wrap sm:gap-4">
+          <ul className="flex flex-col gap-3 text-sm font-medium text-slate-300">
             <li>
               <Link href="/about" className="transition hover:text-white">
                 About Us
